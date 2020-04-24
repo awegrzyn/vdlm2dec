@@ -19,6 +19,7 @@
 #include <pthread.h>
 #include <complex.h>
 #include <stdint.h>
+#include "pthread_barrier_t.h"
 
 #define MAXNBCHANNELS 8
 

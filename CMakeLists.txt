@@ -1,9 +1,13 @@
 cmake_minimum_required (VERSION 3.2)
 project (vdlm2dec C)
 
+if (APPLE)
+add_definitions(-D__APPLE__)
+endif()
+
 add_compile_options(-Ofast -march=native )
 
-add_executable(vdlm2dec cJSON.c  crc.c  d8psk.c  label.c  main.c  outacars.c  out.c  outxid.c  rs.c  vdlm2.c  viterbi.c )
+add_executable(vdlm2dec cJSON.c  crc.c  d8psk.c  label.c  main.c  outacars.c  out.c  outxid.c  rs.c  vdlm2.c  viterbi.c pthread_barrier.c)
 
 find_library(LIBACARS acars)
 if(LIBACARS)
@@ -23,6 +27,10 @@ endif()
 add_definitions(-DWITH_RTL )
 target_sources( vdlm2dec PRIVATE rtl.c)
 target_link_libraries( vdlm2dec ${LIBRTL})
+if (APPLE)
+  get_filename_component(LIBRTL_DIR ${LIBRTL} DIRECTORY)
+  include_directories("${LIBRTL_DIR}/../include")
+endif()
 endif()
 
 option(airspy "Compiling for airspy sdr" )

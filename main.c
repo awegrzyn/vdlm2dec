@@ -105,7 +105,7 @@ int main(int argc, char **argv)
 	int n,c;
 	int res=0;
 	struct sigaction sigact;
-        char sys_hostname[HOST_NAME_MAX+1];
+        char sys_hostname[256];
         char *lblf=NULL;
 
         gethostname(sys_hostname, sizeof(sys_hostname));
